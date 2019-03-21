@@ -1,0 +1,389 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>节流防抖</title>
+</head>
+<style>
+.box{
+    width: 200px;height: 5000px;
+    background: red;
+}
+
+</style>
+<body>
+    <div class="box"></div>
+  
+    
+</body>
+<script>
+    // // window =document.querySelector(".box");
+    // //
+    // window.onscroll=throttle(function(event){
+    //     console.log(event);
+    // },1000);
+    
+    
+
+    // // //节流
+    // // function throttle(fn,time){
+        
+    // //     // var beforeTime = +new Date();
+    // //     var beforeTime = 0;
+    // //     return function(){  //暴露出去得函数
+    // //         var self = this;
+    // //         var args = arguments;
+    // //       var currTime =+new Date();
+    // //       if(currTime-beforeTime>=time){ 
+    // //           //执行了一次
+    // //         fn.apply(self,args);
+    // //         beforeTime = currTime;
+    // //       }
+    // //     }
+     
+    // // }
+
+    // //去抖
+
+    // function debounce(){
+    //     //闭包里面保存得数据
+    //     var timer =null;
+    //     return function(){
+    //         var self =this;
+    //         var args =arguments;
+    //         // var self =this;//备份了一个this
+    //         // var args =arguments;//备份了一个参数类数组
+    //         clearTimeout(timer);//上次下发没执行得任务
+    //        timer= setTimeout(function(){
+    //            fn.apply(self,args);
+    //        },time);
+               
+    //    // apply：调用一个对象的一个方法，用另一个对象替换当前对象。
+    //   // 例如：B.apply(A, arguments);即A对象应用B对象的方法。(最多两个参数)
+    // // call：调用一个对象的一个方法，用另一个对象替换当前对象。
+    //    // 例如：B.call(A, args1,args2);即A对象调用B对象的方法。（多个参数） 
+    //     }
+    // }
+    // //去抖缺点  一个小时以内疯狂下达任务会被丢弃只有最后会被执行一小时过一秒会被执行
+
+    //节流  在一秒以内执行一次或者不执行
+    //去抖   在一秒内重复添加得任务 全部都会被丢弃掉 前面得会被丢弃最后一个会被保存  任务
+
+  
+   window.scroll=throttle(function(){
+       console.log(1);
+   },1000);
+     //节流
+                  //第一个是函数 第二个是时间
+     function throttle(fn,time){
+         var beforeTime = 0;
+         return function(){
+             var self = this;
+             var args=arguments;
+             var currTime =+new Date();
+             if( currTime-beforeTime>=time){
+                 fn.apply(self,args);
+                 beforeTime =currTime;
+             }
+
+         }
+
+
+     }
+     //去抖
+      function debounce(){
+        //闭包里面保存得数据
+        var timer =null;
+        return function(){
+            var self =this;
+            var args =arguments;
+            clearTimeout(timer);//上次下发没执行得任务
+           timer= setTimeout(function(){
+               fn.apply(self,args);
+           },time);
+    
+        }
+    }
+    window.scroll=throttle(function(){
+       console.log(1);
+   },1000);
+     //节流
+                  //第一个是函数 第二个是时间
+     function throttle(fn,time){
+         var beforeTime = 0;
+         return function(){
+             var self = this;
+             var args=arguments;
+             var currTime =+new Date();
+             if( currTime-beforeTime>=time){
+                 fn.apply(self,args);
+                 beforeTime =currTime;
+             }
+
+         }
+
+
+     }
+     //去抖
+      function debounce(){
+        //闭包里面保存得数据
+        var timer =null;
+        return function(){
+            var self =this;
+            var args =arguments;
+            clearTimeout(timer);//上次下发没执行得任务
+           timer= setTimeout(function(){
+               fn.apply(self,args);
+           },time);
+    
+        }
+    }
+
+    window.scroll=throttle(function(){
+       console.log(1);
+   },1000);
+     //节流
+                  //第一个是函数 第二个是时间
+     function throttle(fn,time){
+         var beforeTime = 0;
+         return function(){
+             var self = this;
+             var args=arguments;
+             var currTime =+new Date();
+             if( currTime-beforeTime>=time){
+                 fn.apply(self,args);
+                 beforeTime =currTime;
+             }
+
+         }
+
+
+     }
+     //去抖
+      function debounce(){
+        //闭包里面保存得数据
+        var timer =null;
+        return function(){
+            var self =this;
+            var args =arguments;
+            clearTimeout(timer);//上次下发没执行得任务
+           timer= setTimeout(function(){
+               fn.apply(self,args);
+           },time);
+    
+        }
+    }
+    window.scroll=throttle(function(){
+       console.log(1);
+   },1000);
+     //节流
+                  //第一个是函数 第二个是时间
+     function throttle(fn,time){
+         var beforeTime = 0;
+         return function(){
+             var self = this;
+             var args=arguments;
+             var currTime =+new Date();
+             if( currTime-beforeTime>=time){
+                 fn.apply(self,args);
+                 beforeTime =currTime;
+             }
+
+         }
+
+
+     }
+     //去抖
+      function debounce(){
+        //闭包里面保存得数据
+        var timer =null;
+        return function(){
+            var self =this;
+            var args =arguments;
+            clearTimeout(timer);//上次下发没执行得任务
+           timer= setTimeout(function(){
+               fn.apply(self,args);
+           },time);
+    
+        }
+    }
+    window.scroll=throttle(function(){
+       console.log(1);
+   },1000);
+     //节流
+                  //第一个是函数 第二个是时间
+     function throttle(fn,time){
+         var beforeTime = 0;
+         return function(){
+             var self = this;
+             var args=arguments;
+             var currTime =+new Date();
+             if( currTime-beforeTime>=time){
+                 fn.apply(self,args);
+                 beforeTime =currTime;
+             }
+
+         }
+
+
+     }
+     //去抖
+      function debounce(){
+        //闭包里面保存得数据
+        var timer =null;
+        return function(){
+            var self =this;
+            var args =arguments;
+            clearTimeout(timer);//上次下发没执行得任务
+           timer= setTimeout(function(){
+               fn.apply(self,args);
+           },time);
+    
+        }
+    }
+    window.scroll=throttle(function(){
+       console.log(1);
+   },1000);
+     //节流
+                  //第一个是函数 第二个是时间
+     function throttle(fn,time){
+         var beforeTime = 0;
+         return function(){
+             var self = this;
+             var args=arguments;
+             var currTime =+new Date();
+             if( currTime-beforeTime>=time){
+                 fn.apply(self,args);
+                 beforeTime =currTime;
+             }
+
+         }
+
+
+     }
+     //去抖
+      function debounce(){
+        //闭包里面保存得数据
+        var timer =null;
+        return function(){
+            var self =this;
+            var args =arguments;
+            clearTimeout(timer);//上次下发没执行得任务
+           timer= setTimeout(function(){
+               fn.apply(self,args);
+           },time);
+    
+        }
+    }
+    window.scroll=throttle(function(){
+       console.log(1);
+   },1000);
+     //节流
+                  //第一个是函数 第二个是时间
+     function throttle(fn,time){
+         var beforeTime = 0;
+         return function(){
+             var self = this;
+             var args=arguments;
+             var currTime =+new Date();
+             if( currTime-beforeTime>=time){
+                 fn.apply(self,args);
+                 beforeTime =currTime;
+             }
+
+         }
+
+
+     }
+     //去抖
+      function debounce(){
+        //闭包里面保存得数据
+        var timer =null;
+        return function(){
+            var self =this;
+            var args =arguments;
+            clearTimeout(timer);//上次下发没执行得任务
+           timer= setTimeout(function(){
+               fn.apply(self,args);
+           },time);
+    
+        }
+    }
+    window.scroll=throttle(function(){
+       console.log(1);
+   },1000);
+     //节流
+                  //第一个是函数 第二个是时间
+     function throttle(fn,time){
+         var beforeTime = 0;
+         return function(){
+             var self = this;
+             var args=arguments;
+             var currTime =+new Date();
+             if( currTime-beforeTime>=time){
+                 fn.apply(self,args);
+                 beforeTime =currTime;
+             }
+
+         }
+
+
+     }
+     //去抖
+      function debounce(){
+        //闭包里面保存得数据
+        var timer =null;
+        return function(){
+            var self =this;
+            var args =arguments;
+            clearTimeout(timer);//上次下发没执行得任务
+           timer= setTimeout(function(){
+               fn.apply(self,args);
+           },time);
+    
+        }
+    }
+    window.scroll=throttle(function(){
+       console.log(1);
+   },1000);
+     //节流
+                  //第一个是函数 第二个是时间
+     function throttle(fn,time){
+         var beforeTime = 0;
+         return function(){
+             var self = this;
+             var args=arguments;
+             var currTime =+new Date();
+             if( currTime-beforeTime>=time){
+                 fn.apply(self,args);
+                 beforeTime =currTime;
+             }
+
+         }
+
+
+     }
+     //去抖
+      function debounce(){
+        //闭包里面保存得数据
+        var timer =null;
+        return function(){
+            var self =this;
+            var args =arguments;
+            clearTimeout(timer);//上次下发没执行得任务
+           timer= setTimeout(function(){
+               fn.apply(self,args);
+           },time);
+    
+        }
+    }
+
+
+
+
+
+
+
+
+</script>
+</html> -->
