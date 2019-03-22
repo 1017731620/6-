@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        div{
+            width: 300px;
+            height: 2000px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+        window.onmousemove=throttle(function(){
+            console.log(1);
+        },3000);
+        function throttle(fn,wait){
+            var lastTime=0;
+            var timeout;
+            return function(){
+                var that=this;
+                var nowTime=new Date();
+                if(nowTime-lastTime>wait){
+                    if(timeout){
+                        clearTimeout(timeout);
+                        timeout=null;
+                    }
+                    fn.apply(that,arguments);
+                    lastTime=nowTime;
+                }else if (!timeout) {
+                    timeout=setTimeout(function(){
+                        return function(){
+                            fn.apply(that,arguments);
+                        }
+                    },wait);
+                }
+            }
+        }
+
+        // window.onmousemove=debounce(function(){
+        //     console.log(1);
+        // },3000);
+        // function debounce(fn,wait){
+        //     var lastTime=0;
+        //     var timeout;
+        //     return function(){
+        //         var that=this;
+        //         var nowTime=new Date();
+        //         if(nowTime-lastTime>=wait){
+        //             if(timeout){
+        //                 clearTimeout(timeout);
+        //                 timeout=null;
+        //             }
+        //             fn.apply(that,arguments);
+        //         }else{
+        //             if(timeout){
+        //                 clearTimeout(timeout);
+        //                 timeout=null;
+        //             }
+        //             timeout=setTimeout(function(){
+        //                 return function(){
+        //                     fn.apply(that,arguments);
+        //                 }
+        //             },wait);
+        //         }
+        //         lastTime=nowTime;
+        //     }
+        // }
+    </script>
+</body>
+</html>

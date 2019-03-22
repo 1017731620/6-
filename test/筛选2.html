@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        body{
+            padding-left: 200px;
+        }
+        .ul-zero{
+            width: 300px;
+        }
+        .ul-zero li{
+            width: 33.333%;
+            text-align: center;
+            padding: 10px 0;
+            display:none;
+            background-color: brown;
+        }
+        .ul-one{
+            width: 300px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .ul-one li{
+            width: 33.333%;
+            border: 1px solid black;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .ul-two{
+            width:500px;
+        }
+        .ul-two li{
+            padding:20px 0;
+            background-color: aqua;
+            margin-bottom: 10px;
+        }
+        .ul-two li div{
+            margin-bottom: 10px;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        .bgjh{
+            background-color: orange;
+        }
+        .hide{
+            display: none !important;
+        }
+        .show{
+            display:inline-block !important;
+        }
+    </style>
+</head>
+<body>
+    <ul class="ul-zero">
+        <li>男</li><li>女</li><li>人妖</li>
+    </ul>
+    <ul class="ul-one">
+        <li>男</li><li>女</li><li>人妖</li>
+    </ul>
+    <ul class="ul-two">
+        <li></li>
+    </ul>
+    <script>
+        var pArr = [
+    {
+        name : "Autumn",
+        age : 18,
+        sex : "男",
+        jianjie : "犯得上犯得上发生发射点发射点犯得上"
+    },
+    {
+        name : "小可",
+        age : 18,
+        sex : "女",
+        jianjie : "大美女 哈哈哈哈"
+    },
+    {
+        name : "杰瑞",
+        age : 18,
+        sex : "人妖",
+        jianjie : "萨瓦迪卡 乌西卡玛西狄俄"
+    }
+];
+        showList(['男','女','人妖']);
+        var activeArr=[];
+        function listToArr(nodeList){
+            return Array.from(nodeList);
+        }
+        function showList(targetArr){
+            var html="";
+            targetArr.forEach(function(item,index){
+                pArr.forEach(function(pItem,pIndex){
+                    if(item==pItem.sex){
+                        html=html+"<li>"+
+                            "<p>名字:"+pItem.name+"</p>"+
+                            "<p>名字:"+pItem.age+"</p>"+
+                            "<p>名字:"+pItem.sex+"</p>"+
+                            "<p>名字:"+pItem.jianjie+"</p>"+
+                            "</li>"
+                    }
+                });
+            });
+            document.querySelector(".ul-two").innerHTML=html;
+        }
+
+        var aBtns=document.querySelectorAll(".ul-one li");
+        var activeBtns=document.querySelectorAll(".ul-zero li");
+
+        for(var i=0;i<aBtns.length;i++){
+            aBtns[i].addEventListener("click",function(event){
+                var t=this.innerText;
+                var tIndex=activeArr.indexOf(t);
+                if(tIndex!==-1){
+                    activeArr.splice(tIndex,1);
+                }else{
+                    activeArr.push(t);
+                }
+                showList(activeArr);
+                activeTabFn(activeArr);
+            },false);
+        }
+
+        for(var j=0;j<activeBtns.length;j++){
+            activeBtns[j].onclick=function(){
+                var activeBtnText=this.innerText;
+                var tIndex=activeArr.indexOf(activeBtnText);
+                if(tIndex!==-1){
+                    activeArr.splice(tIndex,1);
+                }
+                activeTabFn(activeArr);
+                showList(activeArr);
+            }
+        }
+
+
+        function activeTabFn(targetArr){
+            listToArr(aBtns).forEach(function(item,index){
+                if(targetArr.indexOf(item.innerText)!==-1){
+                    item.classList.add("bgjh");
+                }else{
+                    item.classList.remove("bgjh");
+                }
+            });
+
+            listToArr(activeBtns).forEach(function(item,index){
+                if(targetArr.indexOf(item.innerText)!==-1){
+                    item.classList.remove("hide");
+                    item.classList.add("show");
+                }else{
+                    item.classList.remove("show");
+                    item.classList.add("hide");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
