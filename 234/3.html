@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第三个轮播图</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        .wrap{
+            width: 1040px;
+            height: 280px;
+            /* background: red; */
+            margin: 50px auto;
+            position: relative;
+            /* overflow: hidden; */
+        }
+        .content{
+            position: absolute;
+            width: 520px;
+            height: 220px;
+            top: 0;
+            left: 50%;
+            margin-left: -249px;
+        }
+        .img-list{
+            /* overflow: hidden; */
+            /* position: absolute; */
+            /* left: 0; */
+        }
+        .img-list li{          
+            width: 520px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 220px;
+            transition: all 0.3s ease;
+        }
+        .menu{
+            position: relative;
+            top: 108px;
+        }
+        .menu > div{
+            font-size: 32px;
+            position: absolute;
+            cursor: pointer;
+            z-index: 100;
+        }
+        #prev{
+            left: 10px;
+            /* display: none; */
+        }
+        #next{
+            right: 0;
+            /* display: none; */
+        }
+        .a-all{
+            width: 100px;
+            height: 10px;
+            position: absolute;
+            /* overflow: hidden; */
+            left: 0;
+            bottom: -230px;
+            right: 0;
+            top: 0;
+            margin: auto;
+            z-index: 10;
+        }
+        .a-all a{
+            float: left;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            background: red;
+            margin: 0 5px;
+    
+        }
+        .a-all a:hover{
+            background-color: black;
+        }
+        .li1{
+            transform: translate3d(300px, 0, 0) scale(0.81);
+            opacity: 0.4;
+            z-index: 1;
+
+        }
+        .li2{
+            transform: translate3d(-325px, 0, 0) scale(0.81);
+            transform-origin: 0 50%;
+            opacity: 0.6;
+            z-index: 2;
+        }
+        .li3{
+            transform: translate3d(-125px, 0, 0) scale(0.81);
+            transform-origin: 0 50%;
+            opacity: 0.8;
+            z-index: 3;
+        }
+        .li4{
+            transform: translate3d(0px, 0, 0) scale(1);
+            opacity: 1;
+            z-index: 4;
+        }
+        .li5{
+            transform: translate3d(220px, 0, 0) scale(0.81);
+            transform-origin: 0 50%;
+            opacity: 0.8;
+            z-index: 3;
+        }
+       
+        </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="content">
+            <!-- 图片 -->
+            <ul class="img-list">
+                <li class="li1"><img src="images/1.webp" alt=""></li>
+                <li class="li2"><img src="images/2.jpg" alt=""></li>
+                <li class="li3"><img src="images/3.jpg" alt=""></li>
+                <li class="li4"><img src="images/4.jpg" alt=""></li>
+                <li class="li5"><img src="images/5.webp" alt=""></li>
+                
+            </ul>
+        </div>
+        <!-- 按钮 -->
+        <div class="menu">
+            <div id="prev">&lt;</div>
+            <div id="next">&gt;</div>
+        </div>
+        <!-- 点 -->
+        <div class="a-all">
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+        
+        </div>
+    </div>
+
+    <script>
+        window.onload = function(){
+            //获取左右点击事件
+            var prev = document.getElementById("prev");
+            var next = document.getElementById("next");
+            //获取li
+            var imgListLi = document.querySelectorAll(".img-list li");
+            //设置一个数组
+            var lis =  ["li1","li2","li3","li4","li5"]
+            //设置一个索引
+            var index = 0;
+            //给左耳朵绑定点击按钮事件
+            prev.onclick = throttle(function(){
+                prevPic()
+                
+            },1000)
+            //给右耳朵绑定点击按钮事件
+            next.onclick = throttle(function(){
+                
+                nextPic()
+            },1000)
+            //向前轮播
+            
+            function prevPic(){
+                //把最后一个放到第一个
+                lis.unshift(lis[4])
+                //删除最后一个
+                lis.pop();
+                //遍历图片
+                
+                
+                for(var i = 0; i < imgListLi.length ; i++){
+                    //替换class
+                    imgListLi[i].setAttribute("class",lis[i]);
+                }
+                
+            }
+            //向后轮播
+            function nextPic(){
+                //把第一个放到最后一个
+                lis.push(lis[0])
+                //删除第一个
+                lis.shift();
+                //遍历图片
+                for(var i = 0; i < imgListLi.length ; i++){
+                    //替换class
+                    imgListLi[i].setAttribute("class",lis[i]);
+                }
+                // index--;
+                // if(index < 0){
+                //     index = 4;
+                // }
+            }
+            //对左右点击按钮进行节流
+            function throttle(fn,time){
+                var beforeTime = 0 ;
+                return function(){
+                    var self = this;
+                    var args = arguments;
+                    var currenTime = +new Date();
+                    if(currenTime - beforeTime >= time ){
+                        fn.apply(self , args);
+                        beforeTime = currenTime;
+                    }
+                }
+            }
+            
+            var timeId=setInterval(autoCarousel,2000);
+            // //设置一个自动轮播函数
+            function autoCarousel(){
+                //索引自增
+                index++;
+                if(index > 4 ){
+                    index = 0;
+                    imgListLi[index].setAttribute("class",lis[index]);
+                }
+                imgListLi[index].setAttribute("class",lis[index+1]);
+
+                
+            //     //遍历数组
+            //     for(var i = 0; i < imgListLi.length ;i++){
+            //         console.log(i+1)
+            //         imgListLi[i].setAttribute("class",lis[i+1]);
+                    
+            //     }
+                // imgListLi[index].setAttribute("class",lis[3]);
+                
+                    
+                
+                //遍历图片
+                // for(var i = 0; i < imgListLi.length ; i++){
+                //     //替换class
+                //     imgListLi[index].setAttribute("class",lis[index]);
+                //     // console.log(lis[i])
+                // }
+               
+                
+               
+            }
+
+            
+
+
+
+
+
+        }
+    </script>
+</body>
+</html>
