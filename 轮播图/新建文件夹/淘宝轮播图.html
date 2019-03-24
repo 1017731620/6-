@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>淘宝轮播图</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul,li{
+            list-style: none;
+        }
+    .wrap{
+        width: 520px;
+        height: 280px;
+        background: red;
+        margin: 50px auto;
+        position: relative;
+        overflow: hidden;
+    }
+    .img-list{
+        overflow: hidden;
+        position: absolute;
+        
+        left: 0;
+    }
+    .img-list li{
+        float: left;
+        width: 520px;
+        /* margin: 0 10px; */
+    }
+    .menu{
+        position: relative;
+        top: 108px;
+    }
+    .menu > div{
+        font-size: 32px;
+        position: absolute;
+        cursor: pointer;
+    }
+    #prev{
+        left: 10px;
+        display: none;
+    }
+    #next{
+        right: 0;
+        display: none;
+    }
+    .a-all{
+        position: absolute;
+        overflow: hidden;
+        left: 0;
+        bottom: 10px;
+    }
+    .a-all a{
+        float: left;
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        background: red;
+        margin: 0 5px;
+
+    }
+    .a-all a:hover{
+        background-color: black;
+    }
+    </style>
+</head>
+<body>
+    
+    <div class="wrap">
+        <!-- 图片 -->
+        <ul class="img-list">
+            <!-- <li><img src="images/5.webp" alt=""></li> -->
+            <li><img src="images/1.webp" alt=""></li>
+            <li><img src="images/2.jpg" alt=""></li>
+            <li><img src="images/3.jpg" alt=""></li>
+            <li><img src="images/4.jpg" alt=""></li>
+            <li><img src="images/5.webp" alt=""></li>
+            <li><img src="images/1.webp" alt=""></li>
+        </ul>
+        <!-- 按钮 -->
+        <div class="menu">
+            <div id="prev">&lt;</div>
+            <div id="next">&gt;</div>
+        </div>
+        <!-- 点 -->
+        <div class="a-all">
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+           
+        </div>
+    </div>
+
+    <script src="tools.js"></script>
+    <script>
+        window.onload = function(){
+            // alert(getStyle)
+            //获取wrap
+            var wrap = document.querySelector(".wrap");
+            // 获取图片下面按钮点
+            var aAlls = document.querySelector(".a-all");
+            //获取图片所有的点
+            var aItem = document.querySelectorAll(".a-all a")
+            // alert(aItem.length)
+
+            //获取左右的按钮
+            var prev = document.getElementById("prev")
+            var next = document.getElementById("next")
+            
+            //让按钮点位置处于中间
+            aAlls.style.left = (wrap.offsetWidth - aAlls.offsetWidth) / 2 + "px";
+
+            //获取img-list
+            var imgList = document.querySelector(".img-list");
+            //获取li
+            var imgListLi = document.querySelectorAll(".img-list li")
+            // alert(imgListLi)
+            //计算img-list宽度
+            imgList.style.width = 520*imgListLi.length + "px";
+
+            //设置一个索引
+            var index = 0;
+            //设置默认的a
+            aItem[index].style.backgroundColor = "black";
+            aClick()
+            //点击下标切换图片
+            function aClick(){
+                for(var i = 0 ; i < aItem.length ; i++){
+                    //设置一个索引
+                    aItem[i].num = i;
+                    //给每一个点添加一个点击事件
+                    aItem[i].onclick = function(){
+                        //点击按钮时关闭定时器
+                        clearInterval(timer);
+                        //获取当前图片的索引
+                        index = this.num
+                        //设置选中的a
+                        setA();
+                        //点击哪个点切换到哪张图片
+                        move(imgList , "left" , -520*index , 10 , function(){
+                            //切换完之后继续进行录播
+                            autoAarousel();
+                        })
+                        
+                    }
+                }
+
+            }
+            around()
+            //点击左右按钮切换图片
+            function around(){
+                //给左右按钮绑定点击按钮事件
+                prev.onclick = function(){
+                    clearInterval(timer);
+                    
+                    index--;
+                    if(index < 0){
+                        index = imgListLi.length-2;
+                        // alert(index)
+                        
+                    }
+                    // alert(index)
+                    // alert(-520 * index)
+                    imgList.style.left = -520 * index +"px";
+
+                    setA()
+                    autoAarousel();
+                    
+                   
+                }
+                next.onclick = function(){
+                    index++
+                    if(index > imgListLi.length-2){
+                        index = 0;
+                    }
+                    imgList.style.left = -520 *index +"px";
+                    autoAarousel();
+                    setA()
+                }
+            }
+        
+            //自动轮播
+            autoAarousel();
+
+            //设置一个选中的a
+            function setA(){
+                //对当前索引进行判断，
+                if(index >= imgListLi.length - 1){
+                    //如果是最后一张，设置为0 
+                    index = 0;
+                    imgList.style.left = 0;
+                }
+                //遍历a
+                for(var i = 0 ; i < aItem.length ; i++){
+                    aItem[i].style.backgroundColor = "";
+                }
+                //选中的a设置为黑色
+                aItem[index].style.backgroundColor = "black";
+            }
+            //设置定时器标识
+            var timer;  
+            function autoAarousel(){
+                //设置一个轮播定时器
+                timer = setInterval(function(){
+                    //索引自增
+                    index++;
+                    //判断索引的值
+                    index %= imgListLi.length;
+                    move(imgList , "left" , -520*index , 10 , function(){
+                        // 修改导航按钮
+                        setA();
+                    })
+                },3000)
+                
+            }
+        }
+            
+        
+
+    </script>
+</body>
+</html>
+
+
+
