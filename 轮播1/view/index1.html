@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../js/index1.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }    
+        ul,ol{
+            list-style: none;
+        }
+        div{
+            width: 600px;
+            margin: 100px auto;
+            position: relative;
+            height: 328px;
+        }
+        .ul-one{
+            width: 700%;
+            position: absolute;
+            top: 0;
+            left: -600px;
+        }
+        .ul-one::after{
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+        }
+        .ul-one li{
+            width: 600px;
+            float: left;
+        }
+        .ul-one li img{
+            width: 100%;
+        }
+        .ul-span{
+            width: 300px;
+            position: absolute;
+            bottom: 20px;
+            left: 150px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            background-color: #3333333b;
+            padding: 5px 0;
+            border-radius: 10px;
+        }
+        .ul-span li{
+            width: 15px;
+            height: 15px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        .ul-span li:first-of-type{
+            background-color: blue;
+        }
+        #left-span{
+            position: absolute;
+            top: 135px;
+            font-size: 25px;
+            left: 0;
+        }
+        #right-span{
+            position: absolute;
+            top: 135px;
+            font-size: 25px;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul class="ul-one">
+            <li><img src="../img/5.jpg" alt=""></li>
+            <li><img src="../img/1.jpg" alt=""></li>
+            <li><img src="../img/2.jpg" alt=""></li>
+            <li><img src="../img/3.jpg" alt=""></li>
+            <li><img src="../img/4.jpg" alt=""></li>
+            <li><img src="../img/5.jpg" alt=""></li>
+            <li><img src="../img/1.jpg" alt=""></li>
+        </ul>
+        <ul class="ul-span"><li></li><li></li><li></li><li></li><li></li></ul>
+        <span id="left-span"><</span>
+        <span id="right-span">></span>
+    </div>
+</body>
+</html>
