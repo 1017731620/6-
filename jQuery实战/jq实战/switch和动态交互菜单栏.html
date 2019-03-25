@@ -1,0 +1,143 @@
+<!-- <!DOCTYPE html>
+<style>
+        .switch 
+        {
+            display: flex;
+            border: solid 1px #aaa;
+            width: 62px;		
+            height: 32px;
+            background: #ccc;
+        }
+     
+        .button 
+        {
+            margin: 2px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+     
+        .round
+        {
+            border-radius: 16px;
+        }
+     
+        .off
+        {
+            background: #ddd;
+        }
+     
+        .off div:first-child {
+            background: #aaa;
+        }
+     
+        .off div:last-child {
+            background: transparent;
+        }
+     
+        .on
+        {
+            background: #3a7;
+        }
+     
+        .on div:first-child {
+            background: transparent;
+        }
+     
+        .on div:last-child {
+            background: #fff;
+        }
+    </style>
+     
+     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+     
+    <script>
+        $(document).ready( function () {
+            $(".button").click( function() {
+                $(".switch").toggleClass("on", "off");
+            });
+        });
+    </script>
+     
+    <div class="switch round off">
+        <div class="button round"></div>
+        <div class="button round"></div>
+    </div>
+    </html> -->
+
+<html>
+
+    <style>
+            *{
+                font-family: "Segoe UI Light";
+                font-size:1.2rem;	   /*150%，百分比存在问题，跟屏幕大小有关*/
+            }
+            ul,li{
+                list-style: none;
+                margin:0;
+                padding: 0;
+            }
+         
+            .menu{
+                width: 16rem;
+                background: crimson;
+            }
+         
+            li{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;		/*光标由插入改为可点*/
+            }
+         
+            .menu > li{		/*menu下直接的li子元素*/
+                height: 2.5rem;
+                color: white;
+            }
+         
+            .submenu > li{		/*menu下直接的li子元素*/
+                height: 2rem;
+                color: white;
+                font-size: 1rem;
+                background: #f08890;
+            }
+         
+            .submenu{
+                display: none;
+            }
+        </style>
+         
+         <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+        <script>
+            $(function(){
+                $(".menu>li").click(function(){
+                    $(".active").slideUp();
+                    var id =$(this).attr("id");
+                    $(`.submenu[parent=${id}]`).addClass("active").slideDown();
+                });
+            });
+        </script>
+        <div>
+            <ul id="main" class="menu">
+                <li id="p1">menu item1</li>
+                    <ul class="submenu" parent="p1">	<!--parent是自定义的属性-->
+                        <li>submenu1 item1</li>
+                        <li>submenu1 item2</li>
+                        <li>submenu1 item3</li>
+                    </ul>
+                <li id="p2">menu item2</li>
+                    <ul class="submenu"  parent="p2">
+                        <li>submenu2 item1</li>
+                        <li>submenu2 item2</li>
+                        <li>submenu2 item3</li>
+                        <li>submenu2 item4</li>
+                    </ul>
+                <li id="p3">menu item3</li>
+                    <ul class="submenu"  parent="p3">
+                        <li>submenu3 item1</li>
+                        <li>submenu3 item2</li>
+                        <li>submenu3 item3</li>
+                    </ul>
+            </ul>
+        </div>
+        </html>

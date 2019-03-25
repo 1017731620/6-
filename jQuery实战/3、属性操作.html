@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>attr()用法</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(to right , red ,green)
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background: yellowgreen;
+            
+
+        }
+        .box3{
+            width: 300px;
+            height: 300px;
+            background: red;
+            /* 一 */
+            /* overflow: hidden; */
+            /* 二 */
+            /* border: 1px solid transparent; */
+            /* 三 */
+            /* display: inline-block; */
+            /* 四 */
+            /* padding-top: 1px; */
+            /* 五 */
+        }
+        .box3::before{
+            content: "";
+            display: table;
+            
+        }
+        .box4{
+            width: 100px;
+            height: 100px;
+            background: blue;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box3">
+        <div class="box4"></div>
+    </div>
+    <!-- <a href=""></a> -->
+
+    <!-- <script src="js/jquery-1.10.1.js"></script>
+    <script>
+        //1、点击百度去百度，点击淘宝去淘宝
+        //设置文字
+        var aDom = document.querySelector("a");
+        aDom.innerHTML = "点我去淘宝"
+
+        //设置href为淘宝的链接
+        // $("a").attr("href","http://taobao.com")
+        // $("a").attr({
+        //     "href":"http://taobao.com"
+        // })
+        $("a").attr("href", function(index , itemDom){
+            console.log(index,itemDom)
+            return itemDom + "http://taobao.com"
+        })
+
+        //attr(属性名)读取标签的某个属性值
+        //attr(属性名，属性值) 修改属性的值
+        //attr(属性名，函数) 根据函数的返回值修改属性的值
+    </script> -->
+
+
+    <script>
+
+        //原生 javascript获取属性
+        var boxDom = document.getElementById("ball");
+        // for(var i = 1 ; i <= 100 ; i++){
+        //     boxDom.setAttribute("data-"+i,i)
+        //     // console.log(boxDom.dataset[i])
+        //     console.log(boxDom.getAttribute("data-"+i))
+        // }
+        //第一种方式 通过 DOM.系统提供的的属性名
+        
+        
+        //第二种方式 针对于自定义的属性 data-自定义属性
+        
+
+        // $(function(){
+        //     console.log($("#ball").attr("class"));
+        //     console.log($("#ball").attr("style"))
+        // })
+        // getAttribute(""),getAttribute(""),getAttribute(),getAttribute(),getAttribute()
+    </script>
+</body>
+</html>

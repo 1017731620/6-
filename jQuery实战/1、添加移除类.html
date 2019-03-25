@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>通过jquery获取元素对象（是jquery自己的对象）$(选择器)</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(to right , red ,green)
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background: yellowgreen;
+        }
+    </style>
+    <script src="js/jquery-1.10.1.js"></script>
+    <script>
+        // $(function(){
+        //     $(".box").removeClass().addClass("box2 box3")
+        // })
+        window.onload = function(){
+            var a1 = document.getElementsByClassName("box")[0];
+            a1.classList.remove("box")
+            a1.classList.add("box2","box3","box4")
+            // a1.className += "box2 box3"
+        }
+    </script>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>
