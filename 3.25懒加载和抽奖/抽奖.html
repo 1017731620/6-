@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>随机抽奖</title>
+    <script src="js/jquery-1.10.1.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        button {
+            display: block;
+            width: 100px;
+            height: 40px;
+            border: 1px solid red;
+            margin: auto;
+        }
+
+        .hezi {
+            margin: 100px auto;
+            width: 300px;
+            height: 360px;
+        }
+
+        .ul {
+            overflow: hidden;
+            width: 290px;
+        }
+
+        .ul li {
+
+            margin-top: 30px;
+            float: left;
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            text-align: center;
+            margin-right: 10px;
+            box-sizing: border-box;
+            border: orangered solid 1px;
+        }
+
+        .ul li:nth-child(3n) {
+            margin-right: 0;
+        }
+
+        .red {
+            background: rgb(0, 238, 255);
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hezi">
+
+        <ul class="ul">
+            <li>1等奖</li>
+            <li>2等奖</li>
+            <li>3等奖</li>
+            <li>4等奖</li>
+            <li>5等奖</li>
+            <li>6等奖</li>
+            <li>7等奖</li>
+            <li>8等奖</li>
+            <li>9等奖</li>
+        </ul>
+        <button>抽奖</button>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function () {
+        //创建一个timer用来保存定时器
+        var timer = null;
+        //获得所有li标签
+        var lis = $('.ul li');
+        //给按钮绑定点击事件
+        $('button').click(function () {
+            //如果按钮里面的文本等于抽奖则将文本改为停止
+            if ($(this).text() == "抽奖") {
+                $(this).text("停止");
+                //给timer赋值一个定时器
+                timer = setInterval(function () {
+                    //创建一个8以内的随机数
+                    var j = Math.round(Math.random() * 8);
+                    //each将所有样式全部清空
+                    lis.each(function (i) {
+                        $(lis[i]).attr("class", "");
+                    })
+                    //下标为随机数的盒子的样式变为red
+                    $(lis[j]).attr('class', "red");
+                }, 200);
+            } else {
+                //若不等于抽奖则关闭定时器 让text文本等于抽奖
+                clearInterval(timer);
+                $(this).text("抽奖");
+            }
+        });
+    });
+</script>
+
+</html>
