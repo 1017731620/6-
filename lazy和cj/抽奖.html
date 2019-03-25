@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            width: 300px;
+            list-style: none;
+        }
+        li{
+            width: 30%;
+            float: left;
+            background-color: aliceblue;
+            text-align: center;
+            margin: 5px;
+        }
+        .bg{
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li class="bg">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+    </ul>
+    <button id="kaishi">点击开始</button>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+        var lis=$('li');
+        var timer=null;
+        var x=0;
+        $("#kaishi").click(function(){
+            x++;
+            if($("#kaishi").innerHTML=="点击开始"){
+                $("#kaishi").innerHTML="点击暂停";
+            }
+            if(x%2==0){
+                clearInterval(timer);
+            }else{
+            console.log(x);
+            clearInterval(timer);
+            timer=null;
+              timer=setInterval(function(){
+                for(let i=0;i<lis.length;i++){
+            $(lis[i]).attr("class","");
+            }
+                var a=Math.floor(Math.random()*10%9);
+                $(lis[a]).attr("class","bg");
+              },300);
+            }
+        }
+        )
+    </script>
+</body>
+</html>
