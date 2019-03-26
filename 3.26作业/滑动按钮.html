@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>滑动按钮</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .da {
+            width: 70px;
+            height: 30px;
+            background: #ece3e3;
+            border-radius: 20px;
+            border:1px solid #c2bfbf;
+        }
+
+        .xiao {
+            position: relative;
+            display: block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #b6aeae;
+        }
+
+        .newda{
+            width: 70px;
+            height: 30px;
+            border-radius: 20px;
+            background: #17b424;
+        }
+        .newxiao{
+            position: relative;
+            
+            display: block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="da">
+        <a class="xiao" href="javascript:;"></a>
+    </div>
+</body>
+<script src="js/jquery-1.10.1.js"></script>
+<script>
+        $(document).ready(function () { 
+        $("div a").click(function(){
+            $(this).hasClass("xiao")? $(this).removeClass("xiao").addClass("newxiao").stop().animate({"left": "40px"},200).parent().removeClass("da").addClass("newda"):$(this).removeClass("newxiao").addClass("xiao").stop().animate({"left": "0px"},200).parent().removeClass("newda").addClass("da");
+        });
+
+       });
+       </script>
+</html>

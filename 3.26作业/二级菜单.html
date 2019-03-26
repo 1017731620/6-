@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二级菜单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .box a {
+            display: block;
+            width: 170px;
+            height: 50px;
+            text-align: center;
+            background: salmon;
+            line-height: 50px;
+            box-sizing: border-box;
+            color: #ffff;
+        }
+        .box span {
+            display: block;
+            width: 170px;
+            height: 50px;
+            text-align: center;
+            background: rgb(224, 39, 19);
+            line-height: 50px;
+            box-sizing: border-box;
+            color: #ffff;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="box">
+            <span>menu item1</span>
+            <a href="javascript:;">sumint1</a>
+            <a href="javascript:;">sumint2</a>
+            <a href="javascript:;">sumint3</a>
+        </div>
+        <div class="box">
+            <span>menu item2</span>
+            <a href="javascript:;">sumint1</a>
+            <a href="javascript:;">sumint2</a>
+            <a href="javascript:;">sumint3</a>
+        </div>
+        <div class="box">
+            <span>menu item3</span>
+            <a href="javascript:;">sumint1</a>
+            <a href="javascript:;">sumint2</a>
+            <a href="javascript:;">sumint3</a>
+        </div>
+    </div>
+</body>
+<script src="js/jquery-1.10.1.js"></script>
+<script>
+       $(document).ready(function () {
+        $(".box").each(function (i) {
+              $($(".box")[i]).children("span").click(function () {
+                  $(this).nextAll("a").slideToggle(200);
+                });    
+                    });
+       });
+</script>
+
+</html>
