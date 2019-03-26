@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多级菜单</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style: none;
+        }
+        .c1{
+            width:300px;
+            margin:20px auto;
+        }
+        .tree-list{
+            background:green;
+        }
+        .tree-list ul{
+            display: none;
+            padding-left:20px;
+        }
+        .tree-show>ul{
+            display: block;
+        }
+        .tree-list>span:before{
+            content: "+";
+        }
+        .tree-list.tree-show>span:before{
+            content: "-";
+        }
+    </style>
+</head>
+<body>
+    <div class="c1">
+        <ul>
+            <li class="tree-list">
+                <span>核心</span>
+                <ul>
+                    <li>
+                       <span>核心1</span></li>
+                    <li><span>核心2</span></li>
+                    <li><span>核心3</span></li>
+                    <li><span>核心4</span></li>
+                    <li><span>核心5</span></li>
+                </ul>
+            </li>
+            <li class="tree-list">
+                <span>档案</span>
+                <ul>
+                    <li class="tree-list">
+                        <span>档案1</span>
+                        <ul>
+                            <li class="tree-list"><span>档案1-1</span>
+                                <ul>
+                                    <li>
+                                        <span>档案1-1-1</span>
+                                    </li>
+                                    <li>
+                                        <span>档案1-1-2</span>
+                                    </li>
+                                    <li>
+                                        <span>档案1-1-3</span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><span>档案1-2</span></li>
+                            <li><span>档案1-3</span></li>
+                            <li><span>档案1-4</span></li>
+                            <li><span>档案1-5</span></li>
+                        </ul>
+                    </li>
+                    <li><span>档案2</span></li>
+                    <li><span>档案3</span></li>
+                    <li><span>档案4</span></li>
+                    <li><span>档案5</span></li>
+                </ul>
+            </li>
+            <li class="tree-list">
+                <span>资料</span>
+                <ul>
+                    <li><span>资料1</span></li>
+                    <li><span>资料2</span></li>
+                    <li><span>资料3</span></li>
+                    <li><span>资料4</span></li>
+                    <li><span>资料5</span></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(".tree-list>span").on("click",function(){
+        if($(this).parent(".tree-list").hasClass("tree-show")){
+            $(this).parent(".tree-list").removeClass("tree-show").find(".tree-list").removeClass("tree-show")
+        }else{
+            $(this).parent(".tree-list").addClass("tree-show")
+        }
+    })
+</script>
+</html>
