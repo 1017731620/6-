@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        ul{
+            list-style: none;
+            width: 600px;
+            margin:200px auto;
+        }
+        ul li{
+            width: 100%;
+            height: 20px;
+            margin-bottom: 10px;
+            background-color: blue;
+        }
+        .active{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        window.onload=function(){
+            var lis=document.getElementsByTagName("li");
+            var aaaaa={
+                a1:function(a){
+                    a.classList.add("active");
+                    return this;
+                },
+                a2:function(b){
+                    for(let j=0;j<lis.length;j++){
+                        if(lis[j]!=b){
+                            lis[j].classList.remove("active");
+                        }
+                    }
+                    return this;
+                }
+            }
+            for(var i=0;i<lis.length;i++){
+                lis[i].onclick=function(){
+                    aaaaa.a1(this).a2(this);
+                }
+            }
+
+            
+        }
+    </script>
+</body>
+</html>
