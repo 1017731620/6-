@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        div{
+            margin: 200px auto;
+            width: 600px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        ul{
+            width: 600%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: absolute;
+        }
+        ul li{
+            width: 600px;
+            height: 100%;
+
+        }
+        ul li img{
+            width: 100%;
+            height: 100%;
+        }
+        #span-left{
+            position: absolute;
+            top: 45%;
+            left: 0;
+        }
+        #span-right{
+            position: absolute;
+            top: 45%;
+            right: 0;
+        }
+        span{
+            display: block;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            font-size: 20px;
+            color: white;
+        }
+        ol{
+            width: 300px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        ol li{
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        .bg-blue{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul>
+            <li><img src="./img-zzzzz/凤巢1.jpg" alt=""></li>
+            <li><img src="./img-zzzzz/天目山1.jpg" alt=""></li>
+            <li><img src="./img-zzzzz/林栖翠玲1.jpg" alt=""></li>
+            <li><img src="./img-zzzzz/桐庐1.jpg" alt=""></li>
+            <li><img src="./img-zzzzz/银铃坪1.jpg" alt=""></li>
+        </ul>
+        <span id="span-left"><</span>
+        <span id="span-right">></span>
+        <ol>
+            <li class="bg-blue"></li><li></li><li></li><li></li><li></li>
+        </ol>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+        $(window).ready(function(){
+            var imgClone=$('ul li').first().clone();
+            $('ul').append(imgClone).width($('ul li').length*$('ul li').width);
+            
+            var i=0;
+            var timer=null;
+            clearInterval(timer);
+
+            autoPlay();
+
+            function autoPlay(){
+                timer=setInterval(function(){
+                    i++;
+                    moveImg();
+                },2000);
+            }
+            console.log($('ul li').length);
+
+            $('#span-left').click(throtle(function(){
+                i--;
+                moveImg();
+            },500))
+
+            $('#span-right').click(throtle(function(){
+                i++;
+                moveImg();
+            },500))
+
+            $('div').mouseover(function(){
+                clearInterval(timer);
+            })
+
+            $('div').mouseout(function(){
+                autoPlay();
+            })
+
+            for(let j=0;j<$('ol li').length;j++){
+                $('ol li').eq(j).click(function(){
+                    i=j;
+                    moveImg();
+                })
+            }
+            function moveImg(){
+                if(i>=$('ul li').length){
+                    i=1;
+                    $('ul').css({"left":0+"px"});
+                }
+                if(i<0){
+                    i=$('ul li').length-2;
+                    $('ul').css({"left":-3000+"px"});
+                }
+
+                $('ul').animate({"left":-600*i+"px"},500);
+
+                if(i==$('ul li').length-1){
+                    $('ol li').eq(0).addClass("bg-blue").siblings().removeClass("bg-blue");
+                }else{
+                    $('ol li').eq(i).addClass("bg-blue").siblings().removeClass("bg-blue");
+                }
+
+            }
+
+            function throtle(fn,wait){
+                var lasttime=0;
+                return function(){
+                    var that=this;
+                    var nowtime=new Date();
+                    if(nowtime-lasttime>=wait){
+                        fn.apply(that,arguments);
+                        lasttime=nowtime;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
