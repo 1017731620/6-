@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>分页器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .box{
+            width: 800px;
+            margin: 300px auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button{
+            border: none;
+            outline: none;
+            width: 55px;
+            height: 30px;
+            background-color: bisque;
+        }
+        ul{
+            width: 670px;
+            height: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        ul li{
+            width: 9%;
+            height: 30px;
+            line-height: 30px;
+            color: white;
+            text-align: center;
+            background-color:rgba(0, 0, 0, 0.205);
+        }
+        .bg{
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <button id="last">上一页</button>
+        <ul>
+            <li class="bg">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+        </ul>
+        <button id="next">下一页</button>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+        $(window).ready(function(){
+            var i=0,j=0,z=0;
+            $('#last').click(function(){
+                i--;
+                z--;
+                if(i%10==9&&i!=0){
+                    j--;
+                }
+                indexMove();
+            })
+
+            $('#next').click(function(){
+                i++;
+                z++;
+                if(i%10==0&&i!=0){
+                    j++;
+                }
+                indexMove();
+            })
+
+            function indexMove(){
+                if(i%10==0){
+                    z=0;
+                }
+                if(i>=29){
+                    j=2;
+                    z=9;
+                    i=29;
+                }
+                if(z<0){
+                    z=$('ul li').length-1;
+                }
+                $('ul li').eq(z).addClass("bg").siblings().removeClass("bg"); 
+
+                if(i<0){
+                    i=0;
+                    z=0;
+                    $('ul li').eq(0).addClass("bg").siblings().removeClass("bg");
+                }
+                for(var x=0;x<$('ul li').length;x++){
+                    $('ul li').eq(x).text(j*10+x+1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
