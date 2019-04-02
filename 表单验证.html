@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jquery表单验证</title>
+    <link rel="stylesheet" href="css/currency.css" />
+    <style>
+        .box{
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgb(170, 238, 198);
+            margin: 100px auto;
+        }
+        .item_1:nth-child(4) input{
+            display: inline-block;
+            width: 50px; height: 25px;
+            line-height: 30px;
+        }
+        .item_1:nth-child(4) span{
+            float: right;
+            width: 50px; height: 30px;
+            border: 1px solid #ccc8c8;
+            text-align: center; line-height: 30px;
+            font-size: 16px;
+            margin-right: 50px;
+        }
+        .item_1{
+            margin: 5px auto;
+        }
+        .item_1 i{
+            display: inline-block;
+            width: 60px; height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .item_1 input{
+            display: inline-block;
+            width: 200px; height: 30px;
+            line-height: 40px;
+        }
+        .item_1 span{
+            display: block;
+            width: 180px;height:15px ;
+            line-height: 15px;
+            margin: 0 auto;
+        }
+        .str{
+            width: 100px;
+            margin-left: 60px;
+        }
+        
+        .str>div{
+            display: inline-block;
+            width: 25px;height: 15px;
+            text-align: center;line-height: 15px;
+            border: 1px solid #ccc8c8;
+        }
+        .org{
+            background: orange;
+            color: #e04b10;
+        }
+        .btn{
+            width: 150px;height: 40px;
+            line-height: 40px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn input{
+                 margin: auto;
+                display: inline-block;
+                width: 50px; height: 30px;
+                cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+        <div class="box">
+            <form action="抽奖.html">
+               <div class="item_1">
+                    <i>账号:</i><input type="text" class="rufa"  placeholder="请输入账号" value=""  id="account"  onKeyUp="value=value.replace(/[\W]/g,'')"><span class="ac"></span>
+               </div>
+               <div class="item_1">
+                    <i>密码:</i><input type="password"  placeholder="请输入密码" value="" id="password" >
+                    <div class="str">
+                            <div>弱</div>
+                            <div>中</div>
+                            <div>强</div>
+                    </div>
+               </div>
+               <div class="item_1">
+                    <i>确认密码:</i><input type="text"  class="rufa"  placeholder="再次输入密码" id="pswd" ><span class="pswd"></span>
+               </div>
+               <div class="item_1">
+                    <i>验证码:</i> <input type="text" id="yanz" class="rufa" /><a href="javascript:;" class="huan" style="color:aqua">换一张</a><span class="yzm"></span>
+               </div>
+               <div class="btn">
+                   <input type="submit" value="提交" id="tijiao"/>
+                   <input type="reset" value="重置"/>
+               </div>
+            </form>
+        </div>
+</body>
+<script src="js/jquery-1.10.1.js"></script>
+<script>
+    $(document).ready(function () {
+        //大小写字母
+         var rz = /[a-zA-Z]/;
+         // 正则0-9的内容
+         var r9 = /[0-9]/;
+         // 特殊字符
+         var rw = /\W/;
+        $("#account").blur(function(){
+           var ac = $("#account").val()
+           if(ac == ""){
+            $(".ac").text("账号不能为空").css("color","red");
+          }else if(ac.length<4 || ac.length>16){
+            $(".ac").text("密码长度为4至16之间").css("color","red");
+            }else{
+             $(".ac").text("")
+          }
+        });
+
+        // 判断密码强度
+        $("#password").bind("input propertychange", function() {
+            var pas = $("#password").val()
+             //判断密码是否有字符、数字、字母其中一种   
+            if (rz.test(pas) || r9.test(pas) || rw.test(pas)) {
+            $(".str div").eq(0).addClass("org");
+            }else{
+                $(".str div").eq(0).removeClass("org");
+            }
+           //判断密码是否有字符、数字、字母其中两种   
+        if ( (rz.test(pas) && r9.test(pas)) ||(r9.test(pas) && rw.test(pas)) || (rz.test(pas) && rw.test(pas))
+        ) {
+            $(".str div").eq(2).siblings().addClass("org");
+        } else {
+            $(".str div").eq(1).removeClass("org");
+        }
+        //判断密码是否包含字符、数字、字母其中三种   
+        if (rz.test(pas) && r9.test(pas) && rw.test(pas)) {
+            $(".str div").addClass("org");
+        } else {
+            $(".str div").eq(2).removeClass("org");
+        }
+        });
+        // 判断两次密码是否一致
+        $("#pswd").blur(function(){
+            $(".pswd").text("");
+            var pas = $("#password").val();
+            var pswd =  $("#pswd").val();
+            if(pas !== pswd){
+                $(".pswd").text("两次密码不一致").css("color","red");
+            }
+        });
+
+    //验证码
+    var strYzm="";
+    showYzm();
+    function showYzm() {
+        strYzm="";
+        var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        for (var i = 1; i <= 4; i++) {
+          // 数字取整并且不能大于最大的那个字符串的值
+          // 获得到0-35的最大数
+          var position = Math.floor(Math.random() * 100) % 36;
+          // 截取的是下标的位置
+          strYzm += str.substring(position, position + 1);
+          }
+        $(".yzm").text(strYzm)
+         }
+      $(".huan").click(function(){
+        showYzm();
+        });
+
+//判断验证码是否真确
+$("#yanz").blur(function(){
+        //判断验证码是否正确
+        var yanz = $("#yanz").val();
+        if (yanz.toUpperCase() !== strYzm) {
+           alert("验证码错误")
+        } 
+    });
+
+
+$("#tijiao").click(function(){
+            var pas = $("#password").val();
+            var pswd =  $("#pswd").val();
+            if(pas !== pswd){
+                $(".pswd").text("两次密码不一致").css("color","red");
+                return false;
+            }
+           var ac = $("#account").val()
+           if(ac == ""){
+            $(".ac").text("账号不能为空").css("color","red");
+            return false;
+          }else if(ac.length<4 || ac.length>16){
+            $(".ac").text("密码长度为4至16之间").css("color","red");
+            return false;
+            }else{
+             $(".ac").text("")
+             return true;
+          }
+        var yanz = $("#yanz").val();
+        if (yanz.toUpperCase() !== strYzm) {
+           alert("验证码错误")
+           return false;
+        }else{
+            return true;
+        }
+})
+
+    });
+
+
+
+
+</script>
+</html>
