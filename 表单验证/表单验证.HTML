@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>表单验证</title>
+</head>
+<style>
+    * {
+        margin: 0%;
+        padding: 0%;
+
+    }
+</style>
+
+<body>
+    <form id="form">
+        <span class="name">姓名：</span><input type="text" value="请输入姓名" id="name"><span id="name-ts"></span> <br />
+        <span class="password">密码：</span><input type="password" value="" id="password"><span id="password-ts"></span><br />
+        <span class="passwords">确认密码：</span><input type="password" value="" id="passwords"><span id="passwords-ts"></span>
+        <br />
+        <input  id="btn" type="button" value="提交">
+
+
+
+
+    </form>
+
+</body>
+<script src="./js/jquery.js"></script>
+<script>
+    $(function () {
+
+        $('#name').blur(function () {
+            var name = $('#name').val().trim();
+            var zz = /^[a-zA-Z0-9_-]{4,6}$/;
+            var zzn =zz.test(name);
+            var len = name.length;
+            if (len<6||name==''||zzn) {
+                $('#name-ts').html('输入错误');
+            } else {
+                $('#name-ts').html('输入正确');
+            }
+
+        });
+
+        $('#password').blur(function(){
+            var pas = $('#password').val().trim();
+            var pass =$('#passwords').val().trim();
+            var sz=/[0-9]/;
+            var zm=/[a-zA-Z]/;
+            var ts=/\W/;
+		    var ts=/\W/;
+         
+            var szp = sz.test(pas);
+            var lens =pas.length;
+            
+
+            if(pas==''||lens<6){
+                $('#password-ts').html('输入错误');
+            }else{
+                $('#password-ts').html('输入正确');
+            }
+
+            if(sz){
+                $('#password-ts').html('弱').css("background","blue");
+            }
+            if(zm.test(pas)&&sz){
+                $('#password-ts').html('中').css("background","yellow");
+            }
+            if(zm.test(pas)&&sz&&ts.test(pas)){
+                $('#password-ts').html('强').css("background","red");
+            }
+           
+        })
+
+        $('#passwords').blur(function(){
+            var pas = $('#password').val().trim();
+            var pass =$('#passwords').val().trim();
+
+             if(pas!=pass){
+                $('#passwords-ts').html('两次密码不一致');
+
+            }else{
+                $('#passwords-ts').html('你怎么这么棒嘞');
+
+
+            }
+        })
+
+
+        $('#btn').click(function(){
+            $('#form').submit();
+
+        })
+
+
+
+
+    })
+
+
+
+
+
+
+</script>
+
+</html>
